@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔋 Υπολογιστής Φόρτισης EV</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 20px;
+      background: linear-gradient(to bottom right, #e0f7fa, #e8f5e9);
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔋 Υπολογιστής Φόρτισης EV</h1>
+
+    <label>Χωρητικότητα Μπαταρίας (kWh)</label>
+    <input type="number" id="capacity" value="48">
+
+    <label>Τάση (V)</label>
+    <input type="number" id="voltage" value="230" disabled>
+
+    <label>Ρεύμα Φόρτισης (A)</label>
+    <select id="current">
+      <option value="">-- Διάλεξε --</option>
+      <option value="6">6 A</option>
+      <option value="8">8 A</option>
+      <option value="10">10 A</option>
+      <option value="13">13 A</option>
+      <option value="16">16 A</option>
+    </select>
+
+    <label>Ποσοστό πριν (%)</label>
+    <input type="number" id="before" placeholder="π.χ. 20">
+
+    <label>Στόχος (%)</label>
+    <input type="number" id="target" placeholder="π.χ. 80">
+
+    <label>Ώρες</label>
+    <input type="number" id="hours" placeholder="π.χ. 5">
+
+    <button onclick="calculate()">Υπολογισμός</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const capacity = parseFloat(document.getElementById("capacity").value);
+      const voltage = 230;
+      const current = parseFloat(document.getElementById("current").value);
+      const before = parseFloat(document.getElementById("before").value);
+      const target = parseFloat(document.getElementById("target").value);
+      const hours = parseFloat(document.getElementById("hours").value);
+
+      const neededKWh = capacity * (target - before) / 100;
+      const chargerPower = (voltage * current) / 1000 * 0.9; // 90% efficiency
+      let result = "";
+
+      if (!isNaN(current) && !isNaN(before) && !isNaN(target) && isNaN(hours)) {
+        const time = neededKWh / chargerPower;
+        result = `⏱️ Χρόνος φόρτισης: ${time.toFixed(1)} ώρες`;
+      } else if (!isNaN(current) && !isNaN(before) && !isNaN(target) && !isNaN(hours)) {
+        const charged = chargerPower * hours;
+        const percent = (charged / capacity) * 100;
+        result = `⚡ Θα πάρει περίπου ${percent.toFixed(1)}% (${charged.toFixed(1)} kWh)`;
+      } else if (!isNaN(hours) && !isNaN(before) && !isNaN(target) && isNaN(current)) {
+        const neededCurrent = neededKWh / hours / (voltage * 0.9 / 1000);
+        result = `🔌 Χρειάζεσαι περίπου ${neededCurrent.toFixed(1)} A`;
+      } else {
+        result = "Συμπλήρωσε τα πεδία σωστά!";
+      }
+
+      document.getElementById("result").innerText = result;
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch(e => console.log('SW registration failed:', e));
+    }
+  </script>
+</body>
+</html>

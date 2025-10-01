@@ -12,18 +12,6 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0; padding: 20px;
-      background: linear-gradient(to bottom right, #e0f7fa, #e8f5e9);
-      text-align: center;
-    }
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-    body {
-      font-family: Arial, sans-serif;
       margin: 20px;
       background: #fofofo;
     }
@@ -78,7 +66,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>🚗🔋⚡Υπολογιστής Φόρτισης EV </h2>
+    <h2>🚗🔋⚡ Υπολογιστής Φόρτισης EV</h2>
 
     <label>Χωρητικότητα μπαταρίας (kWh):</label>
     <input type="number" id="capacity" value="48">
@@ -111,6 +99,7 @@
     <button onclick="calculate()">Υπολόγισε</button>
     <div class="result" id="result"></div>
   </div>
+
   <script>
     function calculate() {
       let capacity = parseFloat(document.getElementById('capacity').value) || 0;
@@ -157,9 +146,9 @@
           resultText = "ℹ️ Συμπλήρωσε 2 πεδία (Ρεύμα & Ώρες ή Ρεύμα & Στόχος ή Ώρες & Στόχος).";
         }
       }
-      document.getElementById("result").innerText = result;
-    }
 
+      document.getElementById('result').innerText = resultText;
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))

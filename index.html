@@ -22,74 +22,95 @@
       background: white;
       border-radius: 20px;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #fofofo;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
     }
     input, select {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 10px;
+      height: 45px;            /* Σταθερό ύψος για όλα */
+      padding: 8px 10px;
+      margin-top: 6px;
+      font-size: 16px;
       border: 1px solid #ccc;
-      text-align: center;
+      border-radius: 6px;
+      box-sizing: border-box;  /* Για να μην ξεχειλώνουν */
     }
     button {
       width: 100%;
-      padding: 12px;
+      height: 50px;
+      margin-top: 15px;
+      font-size: 18px;
       background: #4CAF50;
       color: white;
       border: none;
-      border-radius: 10px;
-      font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
     }
     button:hover {
       background: #45a049;
     }
-    h1 {
-      font-size: 22px;
-    }
     .result {
-      margin-top: 15px;
+      margin-top: 20px;
       font-size: 18px;
       font-weight: bold;
-      color: #333;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🔋 Υπολογιστής Φόρτισης EV</h1>
+    <h2>🚗🔋⚡ Υπολογιστής Φόρτισης EV</h2>
 
-    <label>Χωρητικότητα Μπαταρίας (kWh)</label>
+    <label>Χωρητικότητα μπαταρίας (kWh):</label>
     <input type="number" id="capacity" value="48">
 
-    <label>Τάση (V)</label>
-    <input type="number" id="voltage" value="230" disabled>
+    <label>Τάση (V):</label>
+    <input type="number" id="voltage" value="230" readonly>
 
-    <label>Ρεύμα Φόρτισης (A)</label>
+    <label>Ρεύμα (A):</label>
     <select id="current">
-      <option value="">-- Διάλεξε --</option>
-      <option value="6">6 A</option>
-      <option value="8">8 A</option>
-      <option value="10">10 A</option>
-      <option value="13">13 A</option>
-      <option value="16">16 A</option>
+      <option value="">-- επιλέξτε ή αφήστε κενό --</option>
+      <option value="6">6</option>
+      <option value="8">8</option>
+      <option value="10">10</option>
+      <option value="13">13</option>
+      <option value="16">16</option>
     </select>
 
-    <label>Ποσοστό πριν (%)</label>
-    <input type="number" id="before" placeholder="π.χ. 20">
-
-    <label>Στόχος (%)</label>
-    <input type="number" id="target" placeholder="π.χ. 80">
-
-    <label>Ώρες</label>
+    <label>Ώρες φόρτισης:</label>
     <input type="number" id="hours" placeholder="π.χ. 5">
 
-    <button onclick="calculate()">Υπολογισμός</button>
+    <label>Ποσοστό αρχικό (%):</label>
+    <input type="number" id="start" placeholder="π.χ. 20">
 
+    <label>Ποσοστό στόχος (%):</label>
+    <input type="number" id="target" placeholder="π.χ. 80">
+
+    <label>Απόδοση φορτιστή (%):</label>
+    <input type="number" id="efficiency" value="90">
+
+    <button onclick="calculate()">Υπολόγισε</button>
     <div class="result" id="result"></div>
   </div>
-
   <script>
     function calculate() {
       const capacity = parseFloat(document.getElementById("capacity").value);

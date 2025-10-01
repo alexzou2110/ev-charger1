@@ -23,3 +23,9 @@ self.addEventListener("fetch", (event) => {
   // Always fetch from network, don't use old cache
   event.respondWith(fetch(event.request));
 });
+
+self.addEventListener("install", (e) => {
+  self.skipWaiting();
+});
+
+self.addEventListener("fetch", () => {});

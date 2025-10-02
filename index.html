@@ -92,9 +92,11 @@
 
     <label>Ποσοστό στόχος (%):</label>
     <input type="number" id="target" placeholder="π.χ. 80"> 
-    
+    <!--
     <label>Απόδοση φορτιστή (%):</label> 
     <input type="number" id="efficiency" value="90">
+    -->
+    
 
     <button onclick="calculate()">Υπολόγισε</button>
     <div class="result" id="result"></div>
@@ -108,7 +110,7 @@
       let hours = parseFloat(document.getElementById('hours').value) || null;
       let start = parseFloat(document.getElementById('start').value) || 0;
       let target = parseFloat(document.getElementById('target').value) || null;
-      let efficiency = (parseFloat(document.getElementById('efficiency').value) || 100) / 100;
+      let efficiency = 1 //(parseFloat(document.getElementById('efficiency').value) || 100) / 100;
 
       let resultText = "";
 

@@ -98,7 +98,7 @@
     -->
     
 
-    <button onclick="calculate()">Υπολόγισε</button>
+    <button onclick="calculate()">Υπολόγισε ✅</button>
     <div class="result" id="result"></div>
   </div>
 
@@ -175,9 +175,9 @@ document.querySelectorAll('input, select').forEach(el => {
     localStorage.setItem(el.id, el.value);
   });
 });
-    document.querySelectorAll('input, select').forEach(el => {
-  el.addEventListener('input', calculate);
-});
+    document.querySelectorAll('input, select').forEach(el => { // χωρίς button
+  el.addEventListener('input', calculate); // χωρίς button
+}); // χωρίς button
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))

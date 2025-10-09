@@ -164,7 +164,7 @@
   });
 });
     window.onload = () => {
-  ['capacity', 'start', 'target'].forEach(id => {
+  ['capacity', 'start', 'target', 'current'].forEach(id => {
     if (localStorage.getItem(id))
       document.getElementById(id).value = localStorage.getItem(id);
   });

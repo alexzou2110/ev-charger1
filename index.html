@@ -56,6 +56,7 @@
     button:hover {
       background: #45a049;
     }
+    <progress id="progressBar" value="20" max="100" style="width:100%; margin-top:10px;"></progress>
     .result {
       margin-top: 20px;
       font-size: 18px;
@@ -163,13 +164,8 @@
     }
   });
 });
-    if (resultText.includes('⚠️')) {
-  document.getElementById('result').style.color = 'red';
-} else if (resultText.includes('⏳')) {
-  document.getElementById('result').style.color = 'orange';
-} else {
-  document.getElementById('result').style.color = 'green';
-    }
+    document.getElementById('progressBar').value = start;
+if (target) document.getElementById('progressBar').max = target;
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))

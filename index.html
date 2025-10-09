@@ -175,6 +175,9 @@ document.querySelectorAll('input, select').forEach(el => {
     localStorage.setItem(el.id, el.value);
   });
 });
+    document.querySelectorAll('input, select').forEach(el => {
+  el.addEventListener('input', calculate);
+});
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))

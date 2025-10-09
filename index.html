@@ -163,6 +163,18 @@
     }
   });
 });
+    window.onload = () => {
+  ['capacity', 'start', 'target'].forEach(id => {
+    if (localStorage.getItem(id))
+      document.getElementById(id).value = localStorage.getItem(id);
+  });
+};
+
+document.querySelectorAll('input, select').forEach(el => {
+  el.addEventListener('change', () => {
+    localStorage.setItem(el.id, el.value);
+  });
+});
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))

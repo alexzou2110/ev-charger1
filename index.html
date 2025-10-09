@@ -163,6 +163,13 @@
     }
   });
 });
+    if (resultText.includes('⚠️')) {
+  document.getElementById('result').style.color = 'red';
+} else if (resultText.includes('⏳')) {
+  document.getElementById('result').style.color = 'orange';
+} else {
+  document.getElementById('result').style.color = 'green';
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))

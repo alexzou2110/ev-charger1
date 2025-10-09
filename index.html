@@ -55,8 +55,7 @@
     }
     button:hover {
       background: #45a049;
-    }
-    <progress id="progressBar" value="20" max="100" style="width:100%; margin-top:10px;"></progress>
+    }>
     .result {
       margin-top: 20px;
       font-size: 18px;
@@ -164,8 +163,6 @@
     }
   });
 });
-   // document.getElementById('progressBar').value = start;
-//if (target) document.getElementById('progressBar').max = target;
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js')
         .then(() => console.log('Service Worker registered'))
